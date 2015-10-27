@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
-
-
+{
+    IBOutlet UILabel *myLabelForScore;
+    IBOutlet UILabel *myLabelForInfo;
+}
 @end
 
