@@ -37,8 +37,6 @@
     
     [myLabelForScore setText:[NSString stringWithFormat:@"Your score is %li", self.game.score]];
     [myLabelForInfo setText:self.game.message];
-    
-    
 	
     [self updateUI];
 }
@@ -60,7 +58,6 @@
             i++;
         }
     }
-    //PlayingCard *card;
     NSMutableArray *lastCardsToMatch = [[NSMutableArray alloc] init];
     if (i == 2) {
         for (UIButton *cardButton in self.cardButtons) {

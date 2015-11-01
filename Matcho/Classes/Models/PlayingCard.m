@@ -57,6 +57,10 @@
 
 -(int) match:(NSArray *)otherCards {
 	PlayingCard *card = [otherCards firstObject];
+    
+    if ([card.contents isEqualToString:@"JOKER"]) {
+        return 10;
+    }
 	
 	if ([self.suit isEqualToString:card.suit]) {
 		return 1;

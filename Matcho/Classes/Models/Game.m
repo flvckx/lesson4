@@ -25,7 +25,7 @@
 	self = [super init];
 	
 	if (self) {
-		for (NSUInteger i = 0; i < count; i++) {
+		for (NSUInteger i = 0; i < count - 1; i++) {
 			Card *card = [deck drawRandomCard];
 			
 			if (card) {
@@ -35,6 +35,9 @@
 				break;
 			}
 		}
+        Card *card = [[Card alloc] init];
+        card.contents = @"JOKER";
+        [self.cards addObject:card];
 	}
 	
 	return self;
