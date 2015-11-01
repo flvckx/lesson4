@@ -10,7 +10,7 @@
 
 @interface PlayingCard : Card
 
-@property (nonatomic, strong) NSString *suit;
+@property (nonatomic, strong, readonly) NSString *suit;
 @property (nonatomic) NSUInteger rank;
 
 -(instancetype) initWithSuit:(NSString *)suit andRank:(NSInteger)rank;

@@ -37,6 +37,8 @@
     
     [myLabelForScore setText:[NSString stringWithFormat:@"Your score is %li", self.game.score]];
     [myLabelForInfo setText:self.game.message];
+    
+    
 	
     [self updateUI];
 }
@@ -52,6 +54,32 @@
 							  forState:UIControlStateNormal];
 		cardButton.enabled = !card.isMatched;
 	}
+    int i = 0;
+    for (UIButton *cardButton in self.cardButtons) {
+        if (cardButton.enabled) {
+            i++;
+        }
+    }
+    //PlayingCard *card;
+    NSMutableArray *lastCardsToMatch = [[NSMutableArray alloc] init];
+    if (i == 2) {
+        for (UIButton *cardButton in self.cardButtons) {
+            if (cardButton.enabled) {
+                PlayingCard *card = [[PlayingCard alloc] initWithSuit:[cardButton.titleLabel.text substringFromIndex:1] andRank:[cardButton.titleLabel.text intValue]];
+                [lastCardsToMatch addObject:card];
+            }
+        }
+        if ([[[lastCardsToMatch objectAtIndex:0] suit] isEqualToString:[[lastCardsToMatch objectAtIndex:1] suit]]
+            || [[lastCardsToMatch objectAtIndex:0] rank] == [[lastCardsToMatch objectAtIndex:1] rank]) {
+        } else {
+            [myLabelForInfo setText:@"Game Over. There're no cards to match."];
+            for (UIButton *cardButton in self.cardButtons) {
+                if (cardButton.enabled) {
+                    cardButton.enabled = NO;
+                }
+            }
+        }
+    }
 }
 
 

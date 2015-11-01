@@ -9,6 +9,7 @@
 @import Foundation;
 
 #import "Card.h"
+#import "PlayingCard.h"
 
 @interface Deck : NSObject
 

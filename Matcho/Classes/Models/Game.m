@@ -108,7 +108,7 @@ static const int DOUBLE_MATCH_BONUS = 5;
 				card.chosen = YES;
 			}
 		}
-	}
+    }
 }
 
 
