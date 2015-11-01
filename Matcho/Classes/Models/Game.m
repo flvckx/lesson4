@@ -12,6 +12,7 @@
 
 @property (nonatomic, readwrite) NSInteger score;
 @property (nonatomic, strong) NSMutableArray *cards;
+@property (nonatomic, readwrite) NSString *message;
 
 @end
 
@@ -49,14 +50,17 @@
 static const int MISMATCH_PENALTY = 2;
 static const int MATCH_BONUS = 4;
 static const int COST_TO_CHOOSE = 1;
+static const int DOUBLE_MATCH_BONUS = 5;
 
 
 - (void)chooseCardAtIndex:(NSUInteger)index {
 	Card *card = [self cardAtIndex:index];
-	
+    Card *previousCard;
+    
 	if (!card.isMatched) {
 		if (card.isChosen) {
 			card.chosen = NO;
+            self.message = [NSString stringWithFormat:@"You've put back the card %@, score hasn't changed.", card.contents];
 		} else {
 			NSMutableArray *chosenCards = [[NSMutableArray alloc] init];
 			
@@ -75,19 +79,32 @@ static const int COST_TO_CHOOSE = 1;
 					card.matched = YES;
 					for (Card *otherCard in chosenCards) {
 						otherCard.matched = YES;
+                        previousCard = otherCard;
 					}
+                    
+                    if ((([card.contents containsString:@"♣"] || [card.contents containsString:@"♠"])
+                        && ([previousCard.contents containsString:@"♣"] || [card.contents containsString:@"♠"]))
+                        || (([card.contents containsString:@"♦"] || [card.contents containsString:@"♥"])
+                        && ([previousCard.contents containsString:@"♦"] || [card.contents containsString:@"♥"]))) {
+                            self.score += (matchScore * DOUBLE_MATCH_BONUS);
+                            self.message = [NSString stringWithFormat:@"Well done! Cards %@ and %@ are matched, you score %i.", previousCard.contents, card.contents, (matchScore * MATCH_BONUS) + (matchScore * DOUBLE_MATCH_BONUS)];
+                        } else {
+                            self.message = [NSString stringWithFormat:@"Well done! Cards %@ and %@ are matched, you score %i.", previousCard.contents, card.contents, (matchScore * MATCH_BONUS)];
+                        }
 				} else {
 					int penalty = MISMATCH_PENALTY;
 					
 					self.score -= penalty;
-					
 					card.chosen = YES;
 					for (Card *otherCard in chosenCards) {
 						otherCard.chosen = NO;
+                        previousCard = otherCard;
 					}
+                    self.message = [NSString stringWithFormat:@"Cards %@ and %@ are mismatched, you lose %i.", previousCard.contents, card.contents, MISMATCH_PENALTY];
 				}
 			} else {
 				self.score -= COST_TO_CHOOSE;
+                self.message = [NSString stringWithFormat:@"You've drawn %@, you lose %i.", card.contents, COST_TO_CHOOSE];
 				card.chosen = YES;
 			}
 		}

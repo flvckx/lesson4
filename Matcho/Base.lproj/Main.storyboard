@@ -230,7 +230,6 @@
                         <outletCollection property="cardButtons" destination="h23-sm-ceI" id="cHu-dr-HSe"/>
                         <outletCollection property="cardButtons" destination="yae-pt-bt2" id="9hX-rV-ZnV"/>
                         <outletCollection property="cardButtons" destination="v7f-1t-2WD" id="qGf-nY-3qU"/>
-                        <outletCollection property="cardButtons" destination="h23-sm-ceI" id="Of3-gd-vsX"/>
                         <outletCollection property="cardButtons" destination="Emo-9d-CLG" id="yOw-2o-Ctc"/>
                         <outletCollection property="cardButtons" destination="4aJ-ny-ANg" id="TmL-7C-SzS"/>
                         <outletCollection property="cardButtons" destination="N9A-q0-At3" id="gIV-Dg-4M2"/>

@@ -20,6 +20,7 @@
 
 @implementation ViewController
 
+
 - (Game *)game {
 	if (!_game) {
 		_game = [[Game alloc] initWithCardCount:[self.cardButtons count]
@@ -31,14 +32,13 @@
 
 - (IBAction)cardButtonTapped:(UIButton *)sender {
 	NSUInteger cardIndex = [self.cardButtons indexOfObject:sender];
-	[self.game chooseCardAtIndex:cardIndex];
+    
+    [self.game chooseCardAtIndex:cardIndex];
+    
     [myLabelForScore setText:[NSString stringWithFormat:@"Your score is %li", self.game.score]];
-    
-    if ([UIImage imageNamed:@"cardfront"]) {
-        [myLabelForInfo setText:[NSString stringWithFormat:@"Drawn card's %@, you've lost %li points.", [self titleForCard:[self.game cardAtIndex:cardIndex]], self.game.score]];
-    }
-    
-	[self updateUI];
+    [myLabelForInfo setText:self.game.message];
+	
+    [self updateUI];
 }
 
 
